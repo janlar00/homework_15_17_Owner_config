@@ -17,8 +17,8 @@ import io.qameta.allure.Story;
 public class SomeJobPortalTests extends TestBase {
     MainPage mainPage = new MainPage();
     SearchResultsPage searchResultsPage = new SearchResultsPage();
-
-
+    QaPositionPage qaPositionPage = new QaPositionPage();
+    @Disabled
     @Test
     @DisplayName("Checking title on the main page")
     void checkTitle() {
@@ -30,8 +30,7 @@ public class SomeJobPortalTests extends TestBase {
             mainPage.checkTitle("Deine Karriere gestaltest Du mit der DKB");
         });
     }
-
-
+    @Disabled
     @Test
     @DisplayName("Checking the top menu for correct data")
     void checkTopMenu() {
@@ -48,14 +47,13 @@ public class SomeJobPortalTests extends TestBase {
         });
     }
 
-
     @Test
     @Feature("Issue XYZ")
     @Story("Implement issue XYZ")
     @Owner("JL")
     @Severity(SeverityLevel.BLOCKER)
     @Link(value = "Testing", url = "https://jobs.dkb.de")
-    @DisplayName("Checking the functionality of the search on the main page")
+    @DisplayName("Checking whether the QA position is a full-time job")
     void checkSearchMainPage() {
         final String JOBTITLE = "Quality Assurance Engineer";
 
@@ -67,8 +65,16 @@ public class SomeJobPortalTests extends TestBase {
             mainPage.checkSearchMainPage(JOBTITLE);
         });
 
-        step("The result should return two QA positions ", () -> {
+        step("The result should return one QA position", () -> {
             searchResultsPage.checkResults(1, JOBTITLE);
+        });
+
+        step("Open QA position description", () -> {
+            searchResultsPage.openQAPosDescription(JOBTITLE);
+        });
+
+        step("Check whether is a full-time position", () -> {
+            qaPositionPage.checkPositionDescription();
         });
     }
 }

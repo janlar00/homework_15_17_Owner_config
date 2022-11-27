@@ -4,10 +4,10 @@ import org.aeonbits.owner.Config;
 
 @Config.LoadPolicy(Config.LoadType.MERGE)
 @Config.Sources({
-        "system:properties",
-        "classpath:config/${env}.properties"
+        //"system:properties",
+        "classpath:${env}.properties"
 })
-public interface ProjectConfig extends Config {
+public interface WebDriverConfig extends Config {
 
     @Key("baseURL")
     @DefaultValue("https://jobs.dkb.de")
@@ -18,20 +18,21 @@ public interface ProjectConfig extends Config {
     String browser();
 
     @Key("browserVersion")
-    @DefaultValue("100.0")
+    @DefaultValue("107.0")
     String browserVersion();
 
     @Key("browserSize")
     @DefaultValue("1920x1080")
     String browserSize();
 
-    @Key("browserMobileView")
-    @DefaultValue("")
-    String browserMobileView();
-
     @Key("remoteDriverUrl")
     @DefaultValue("")
     String remoteDriverUrl();
+
+    /*@Key("browserMobileView")
+    @DefaultValue("")
+    String browserMobileView();
+    */
 
     @Key("videoStorage")
     @DefaultValue("")
